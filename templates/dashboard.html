@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Your Dashboard</h2>
+
+<div class="card mb-4">
+  <div class="card-header bg-success text-white">Upload File</div>
+  <div class="card-body">
+    <form action="/upload" method="post" enctype="multipart/form-data">
+      <div class="mb-3">
+        <input type="file" name="file" class="form-control" required />
+      </div>
+      <button type="submit" class="btn btn-success">Upload</button>
+    </form>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-info text-white">Retrieve File by Manifest Hash</div>
+  <div class="card-body">
+    <form method="post" action="{{ url_for('retrieve') }}">
+      <div class="mb-3">
+        <label>Manifest Hash</label>
+        <input type="text" name="manifest_hash" class="form-control" placeholder="Enter manifest hash" required>
+      </div>
+      <button type="submit" class="btn btn-info">Retrieve File</button>
+    </form>
+  </div>
+</div>
+
+<h4>Your Uploaded Files</h4>
+<table class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Filename</th>
+      <th>Manifest Hash</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% if files %}
+      {% for file in files %}
+        <tr>
+          <td>{{ file.filename }}</td>
+          <td><code>{{ file.manifest_hash }}</code></td>
+          <td>
+            <form method="post" action="{{ url_for('retrieve') }}" class="d-inline">
+              <input type="hidden" name="manifest_hash" value="{{ file.manifest_hash }}">
+              <button type="submit" class="btn btn-sm btn-primary">Retrieve</button>
+            </form>
+            <a href="{{ url_for('download_file', filename='recovered_' + file.manifest_hash[:8] + '.' + file.filename.split('.')[-1]) }}" class="btn btn-sm btn-success">Download</a>
+          </td>
+        </tr>
+      {% endfor %}
+    {% else %}
+      <tr>
+        <td colspan="3" class="text-center">No files uploaded yet.</td>
+      </tr>
+    {% endif %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Manage Users</h2>
+<table class="table table-bordered">
+  <thead>
+    <tr>
+      <th>Email</th>
+      <th>Role</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for email, user in users.items() %}
+    <tr>
+      <td>{{ email }}</td>
+      <td>{{ user.role }}</td>
+      <td>
+        {% if user.role != 'admin' %}
+        <a href="{{ url_for('promote_user', email=email) }}" class="btn btn-sm btn-warning">Promote to Admin</a>
+        {% else %}
+        <span class="text-muted">Already Admin</span>
+        {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

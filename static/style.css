@@ -1,0 +1,87 @@
+/* General page styling */
+body {
+  background-color: #f5f7fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  padding-bottom: 60px;
+}
+
+h1, h2, h3, h4 {
+  color: #333;
+}
+
+.card {
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+}
+
+/* Form elements */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="file"],
+select {
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+/* Buttons */
+button, .btn {
+  border-radius: 5px;
+  font-weight: 600;
+  transition: all 0.2s ease-in-out;
+}
+
+button:hover, .btn:hover {
+  opacity: 0.9;
+}
+
+/* Navbar */
+.navbar-brand {
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+
+/* Alerts */
+.alert {
+  font-size: 14px;
+}
+
+/* Footer */
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #343a40;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+}
+
+/* Tables */
+table th, table td {
+  vertical-align: middle !important;
+  font-size: 14px;
+}
+
+table code {
+  font-size: 13px;
+  color: #007bff;
+}
+
+/* Chart container (admin) */
+canvas {
+  max-width: 100%;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 576px) {
+  .card {
+    margin-bottom: 20px;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

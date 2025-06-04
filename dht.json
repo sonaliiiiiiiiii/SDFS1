@@ -1,0 +1,14 @@
+{
+  "chunk1": [
+    "peer1",
+    "peer2"
+  ],
+  "chunk2": [
+    "peer2",
+    "peer3"
+  ],
+  "904c254f71f398a927161dd01de1e7c3b565c18f5016a2138f3a4402ec40e281": "peer1",
+  "44726069e6dfc02ef4d65d232b73a39e7d8a650f7148fb52d7505e6fcd4076c8": "peer1",
+  "e803b68bf4394d51024f4887af7a752b09f7ab6e4fdcab30c139d9f1947ba9eb": "peer3",
+  "db2f5c1a68ee5c7643c0e294892daaed034d285580f4857fc099c9957ab474cf": "peer1"
+}
