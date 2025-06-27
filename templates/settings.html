@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container fade-in">
+  <h2 class="mb-4">Account Settings</h2>
+
+  <!-- Change Password -->
+  <div class="card mb-4">
+    <div class="card-header">Change Password</div>
+    <div class="card-body">
+      <form method="POST" action="{{ url_for('change_password') }}">
+        <div class="mb-3">
+          <label for="current_password" class="form-label">Current Password</label>
+          <input type="password" id="current_password" name="current_password" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="new_password" class="form-label">New Password</label>
+          <input type="password" id="new_password" name="new_password" class="form-control" required>
+        </div>
+        <div class="mb-3">
+          <label for="confirm_password" class="form-label">Confirm New Password</label>
+          <input type="password" id="confirm_password" name="confirm_password" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary w-100">Change Password</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- User Role -->
+  <div class="card mb-4">
+    <div class="card-header">Your Role</div>
+    <div class="card-body">
+      <p>You are logged in as: <strong>{{ user_role|capitalize }}</strong></p>
+      {% if user_role == 'admin' %}
+        <a href="{{ url_for('manage_users') }}" class="btn btn-accent">Manage Users</a>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- Export Upload History -->
+  <div class="card mb-4">
+    <div class="card-header">Export Upload History</div>
+    <div class="card-body">
+      <a href="{{ url_for('download_uploads') }}" class="btn btn-primary">Download JSON</a>
+    </div>
+  </div>
+
+  <!-- Delete Account -->
+  <div class="card mb-4 border border-danger">
+    <div class="card-header text-danger">Delete My Account</div>
+    <div class="card-body">
+      <p>This will permanently delete your account and uploaded file history.</p>
+      <a href="{{ url_for('delete_account') }}" class="btn btn-danger"
+         onclick="return confirm('Are you sure? This cannot be undone.');">
+        Delete My Account
+      </a>
+    </div>
+  </div>
+</div>
+{% endblock %}

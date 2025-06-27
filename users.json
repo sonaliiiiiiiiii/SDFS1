@@ -1,10 +1,6 @@
 {
     "sonali@gmail.com": {
-        "password": "scrypt:32768:8:1$RV7Irso6Oea3aaID$1a039702d8972f192cb482f24e3703768c81b6f65c800dc1e341861f9026c386aa8b12adcb61ec0041313f003f79253b70e11afc523eeb96aa5101247b422fcd",
-        "role": "uploader"
-    },
-    "sos.glu16@outlook.com": {
-        "password": "scrypt:32768:8:1$gydHbLIHQiIkHaSP$911b1277c1fd74785554fff0786240a95e52baa5187f8a88f1d1b8dae7bb06b12f4f1e5f86692fba54fdb3d5e23975a137209491c35728368f5e85bdb42541c5",
+        "password": "scrypt:32768:8:1$8W2q6Dn6I8cvNBnw$893d85e022683f604e016a95452e62d06700e1b3c34bebfd845426d6f628163f0c5f64df4cca9a4e0c2d8faf5bef979134c237b56c149aa373509032badf4769",
         "role": "admin"
     },
     "test@gmail.com": {

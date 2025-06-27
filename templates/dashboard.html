@@ -1,61 +1,75 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2 class="mb-4">Your Dashboard</h2>
+<div class="container fade-in">
 
-<div class="card mb-4">
-  <div class="card-header bg-success text-white">Upload File</div>
-  <div class="card-body">
-    <form action="/upload" method="post" enctype="multipart/form-data">
-      <div class="mb-3">
-        <input type="file" name="file" class="form-control" required />
-      </div>
-      <button type="submit" class="btn btn-success">Upload</button>
-    </form>
+  <div class="card text-center mb-4">
+    <h2 class="mb-1">Welcome, {{ session['user_email'] }}</h2>
+    <p class="text-muted">Secure Decentralized File Storage Dashboard</p>
   </div>
-</div>
 
-<div class="card mb-4">
-  <div class="card-header bg-info text-white">Retrieve File by Manifest Hash</div>
-  <div class="card-body">
-    <form method="post" action="{{ url_for('retrieve') }}">
-      <div class="mb-3">
-        <label>Manifest Hash</label>
-        <input type="text" name="manifest_hash" class="form-control" placeholder="Enter manifest hash" required>
+  <div class="row g-4 mb-4">
+    <!-- Upload Card -->
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header bg-teal text-white">Upload a File</div>
+        <div class="card-body">
+          <form action="/upload" method="post" enctype="multipart/form-data">
+            <input type="file" name="file" class="form-control mb-3" required />
+            <button type="submit" class="btn btn-teal w-100">Upload</button>
+          </form>
+        </div>
       </div>
-      <button type="submit" class="btn btn-info">Retrieve File</button>
-    </form>
-  </div>
-</div>
+    </div>
 
-<h4>Your Uploaded Files</h4>
-<table class="table table-bordered table-striped">
-  <thead>
-    <tr>
-      <th>Filename</th>
-      <th>Manifest Hash</th>
-      <th>Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% if files %}
-      {% for file in files %}
-        <tr>
-          <td>{{ file.filename }}</td>
-          <td><code>{{ file.manifest_hash }}</code></td>
-          <td>
-            <form method="post" action="{{ url_for('retrieve') }}" class="d-inline">
-              <input type="hidden" name="manifest_hash" value="{{ file.manifest_hash }}">
-              <button type="submit" class="btn btn-sm btn-primary">Retrieve</button>
-            </form>
-            <a href="{{ url_for('download_file', filename='recovered_' + file.manifest_hash[:8] + '.' + file.filename.split('.')[-1]) }}" class="btn btn-sm btn-success">Download</a>
-          </td>
-        </tr>
-      {% endfor %}
-    {% else %}
-      <tr>
-        <td colspan="3" class="text-center">No files uploaded yet.</td>
-      </tr>
-    {% endif %}
-  </tbody>
-</table>
+    <!-- Retrieve Card -->
+    <div class="col-md-6">
+      <div class="card h-100">
+        <div class="card-header bg-accent text-white">Retrieve a File</div>
+        <div class="card-body">
+          <form method="post" action="{{ url_for('retrieve') }}">
+            <input type="text" name="manifest_hash" class="form-control mb-3" placeholder="Enter manifest hash" required />
+            <button type="submit" class="btn btn-accent w-100">Retrieve</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Upload History -->
+  <div class="card mb-4">
+    <div class="card-header bg-mint text-dark">Your Uploaded Files</div>
+    <div class="card-body">
+      {% if files %}
+        <div class="uploads-table-container">
+          <table class="uploads-table">
+            <thead>
+              <tr>
+                <th>Filename</th>
+                <th>Manifest Hash</th>
+                <th>Date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for file in files %}
+              <tr>
+                <td>{{ file.filename }}</td>
+                <td><code class="hash-cell">{{ file.manifest_hash }}</code></td>
+                <td>{{ file.timestamp[:10] }}</td>
+                <td>
+                  {% set recovered_name = 'recovered_' ~ file.manifest_hash[:8] ~ '.' ~ file.filename.split('.')[-1] %}
+                  <a href="{{ url_for('download_file', filename=recovered_name) }}" class="download-btn">Download</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      {% else %}
+        <p class="text-muted">No uploads yet.</p>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
 {% endblock %}

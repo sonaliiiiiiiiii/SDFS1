@@ -1,28 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2 class="mb-4">Manage Users</h2>
-<table class="table table-bordered">
-  <thead>
-    <tr>
-      <th>Email</th>
-      <th>Role</th>
-      <th>Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for email, user in users.items() %}
-    <tr>
-      <td>{{ email }}</td>
-      <td>{{ user.role }}</td>
-      <td>
-        {% if user.role != 'admin' %}
-        <a href="{{ url_for('promote_user', email=email) }}" class="btn btn-sm btn-warning">Promote to Admin</a>
-        {% else %}
-        <span class="text-muted">Already Admin</span>
-        {% endif %}
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div class="container fade-in">
+  <h2 class="mb-4">Manage Users</h2>
+
+  <div class="uploads-table-container">
+    <table class="uploads-table">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for email, info in users.items() %}
+        <tr>
+          <td><strong>{{ email }}</strong></td>
+          <td>{{ info.role }}</td>
+          <td>
+            {% if email == session['user_email'] %}
+              <span class="text-muted">You ({{ info.role|capitalize }})</span>
+            {% elif info.role == 'admin' %}
+              <a href="{{ url_for('demote_user', email=email) }}" class="btn btn-sm btn-danger">Demote to User</a>
+            {% else %}
+              <a href="{{ url_for('promote_user', email=email) }}" class="btn btn-sm btn-accent">Promote to Admin</a>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
 {% endblock %}

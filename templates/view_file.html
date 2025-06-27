@@ -1,17 +1,13 @@
 {% extends 'base.html' %}
 {% block content %}
-<h3>✅ File Recovered</h3>
-<div class="card mt-4">
-  <div class="card-body">
-    <p><strong>Filename:</strong> {{ filename }}</p>
-    <a href="{{ url_for('download_file', filename=filename) }}" class="btn btn-success">⬇️ Download</a>
-    {% if filename.endswith('.txt') %}
-    <hr>
-    <h5>📄 File Preview:</h5>
-    <pre style="background: #f8f9fa; padding: 15px; border-radius: 5px;">
-      {{ open("temp/" + filename).read() }}
-    </pre>
-    {% endif %}
+<div class="container text-center">
+  <div class="card p-4">
+    <h4 class="mb-3">File Ready</h4>
+    <p class="mb-3">The file <strong>{{ filename }}</strong> has been successfully retrieved.</p>
+    <div class="d-flex justify-content-center gap-3">
+      <a href="{{ url_for('download_file', filename=filename) }}" class="btn btn-primary">Download</a>
+      <a href="{{ url_for('dashboard') }}" class="btn btn-accent">Back to Dashboard</a>
+    </div>
   </div>
 </div>
 {% endblock %}
